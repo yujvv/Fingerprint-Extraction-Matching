@@ -14,7 +14,7 @@ matcher = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
 # enhanced/1__M_Left_index_finger_CR.BMP
 # fingerprint_c/1.jpg
 img1_ = cv2.imread("enhanced/102_3.tif", cv2.IMREAD_GRAYSCALE)
-img2_ = cv2.imread("enhanced/101_1.tif", cv2.IMREAD_GRAYSCALE)
+img2_ = cv2.imread("enhanced/104_2.tif", cv2.IMREAD_GRAYSCALE)
 
 img1 = enhance_function.enhance_fingerprint_2(img1_)
 img2 = enhance_function.enhance_fingerprint_2(img2_)
@@ -45,47 +45,54 @@ enc_des2 = np.array(enc_des2).astype(np.uint8)
 # Match descriptors, find the best matching features between the two sets of descriptors, Brute-Force Matcher (BFMatcher) or Fast Approximate Nearest Neighbor (FLANN)
 matches = matcher.match(enc_des1, enc_des2)
 
-# Compute key point distances
+# Compute key point distances and strengths
 kp_dist = []
+kp_strengths = []
 for match in matches:
     kp1_idx = match.queryIdx
     kp2_idx = match.trainIdx
     kp1_pos = kp1[kp1_idx].pt
     kp2_pos = kp2[kp2_idx].pt
     dist = np.sqrt((kp1_pos[0]-kp2_pos[0])**2 + (kp1_pos[1]-kp2_pos[1])**2)
+    strength1 = kp1[kp1_idx].response
+    strength2 = kp2[kp2_idx].response
     kp_dist.append(dist)
+    kp_strengths.append(strength1 * strength2)
 
-# Compute average key point distance
+# Compute average key point distance and strength
 avg_kp_dist = sum(kp_dist)/len(kp_dist)
+avg_kp_strength = sum(kp_strengths)/len(kp_strengths)
 
-keypoint_match_score = np.exp(-np.array(kp_dist) / avg_kp_dist)
+# Weight key point match scores by strength
+keypoint_match_score = np.exp(-np.array(kp_dist) / avg_kp_dist) * np.array(kp_strengths) / avg_kp_strength
 
+# Compute overall score
 overall_score = np.average(keypoint_match_score)
 
-print("-------overall_score -----------", overall_score )
-
 # Define the threshold value for matching
-match_threshold = 5
+match_threshold = 36
 
 # Apply the ratio test to filter out false matches
 matches = sorted(matches, key=lambda x: x.distance)
-# The ratio test is applied to filter out false matches by sorting the matches by their distance and keeping only the matches that have a distance ratio lower than 0.75.
-ratio = 0.75
-num_good_matches = int(len(matches) * ratio)
-matches = matches[:num_good_matches]
+good_matches = []
+for match in matches:
+    kp1_idx = match.queryIdx
+    kp2_idx = match.trainIdx
+    kp1_pos = kp1[kp1_idx].pt
+    kp2_pos = kp2[kp2_idx].pt
+    dist = np.sqrt((kp1_pos[0]-kp2_pos[0])**2 + (kp1_pos[1]-kp2_pos[1])**2)
+    strength1 = kp1[kp1_idx].response
+    strength2 = kp2[kp2_idx].response
+    score = np.exp(-dist / avg_kp_dist) * (strength1 * strength2) / avg_kp_strength
+    if score >= 0.7 * overall_score:
+        good_matches.append(match)
+
+num_good_matches = len(good_matches)
 
 print("-----------------", num_good_matches)
+
 # Check if the fingerprints match based on the number of good matches
 if num_good_matches >= match_threshold:
     print("The fingerprints match!")
 else:
     print("The fingerprints do not match.")
-
-
-# Draw matches, Uses the keypoints and the matching information to draw lines between the corresponding points in the two images
-img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches[:10], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
-
-# Display image
-cv2.imshow("Matches", img3)
-cv2.waitKey(0)
-cv2.destroyAllWindows()

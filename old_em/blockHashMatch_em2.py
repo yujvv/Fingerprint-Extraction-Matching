@@ -57,25 +57,6 @@ enc_des2 = np.array(enc_des2).astype(np.uint8)
 # Match descriptors, find the best matching features between the two sets of descriptors, Brute-Force Matcher (BFMatcher) or Fast Approximate Nearest Neighbor (FLANN)
 matches = matcher.match(enc_des1, enc_des2)
 
-print('---------start----------')
-print("matches-----",matches)
-print('---------end----------')
-# # Apply the ratio test to filter out false matches
-# matches = sorted(matches, key=lambda x: x.distance)
-# ratio = 0.75
-# num_good_matches = int(len(matches) * ratio)
-# matches = matches[:num_good_matches]
-
-# # Draw matches
-# img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches[:10], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
-
-# # Display image
-# cv2.imshow("Matches", img3)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-
-
-
 # Define the threshold value for matching
 match_threshold = 10
 
@@ -99,3 +80,4 @@ else:
 cv2.imshow("Matches", img3)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
