@@ -4,6 +4,10 @@ import hashlib
 import enhance_function
 import os
 
+similarity_score_boundary = 500
+matching_criteria = 0.75
+block_size_std = 64
+
 directory = "enhanced/"
 image_files = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
 
@@ -39,7 +43,7 @@ for i in range(len(image_files)):
         kp2, des2 = sift.detectAndCompute(img2, None)
 
         # Divide descriptors into blocks
-        block_size = 64  # Number of descriptors per block
+        block_size = block_size_std  # Number of descriptors per block
         des1_blocks = np.array_split(des1, len(des1) // block_size)
         des2_blocks = np.array_split(des2, len(des2) // block_size)
 
@@ -52,7 +56,7 @@ for i in range(len(image_files)):
         # print('------hash------',hash1)
 
         # Divide concatenated hash values into blocks
-        hash_block_size = 64  # Number of characters per block
+        hash_block_size = block_size  # Number of characters per block
         hash1_blocks = [hash1[i:i+hash_block_size] for i in range(0, len(hash1), hash_block_size)]
         hash2_blocks = [hash2[i:i+hash_block_size] for i in range(0, len(hash2), hash_block_size)]
 
@@ -75,20 +79,20 @@ for i in range(len(image_files)):
                 matches = flann.knnMatch(des1_block, k=2)
                 good_matches = []
                 for m, n in matches:
-                    if m.distance < 0.75*n.distance:
+                    if m.distance < matching_criteria*n.distance:
                         good_matches.append(m)
                 similarity_score += len(good_matches)
 
         # print('Similarity score:', similarity_score)
         samePrint = fingerprint_match(image_files[i], image_files[j])
 
-        if similarity_score>100 and samePrint:
+        if similarity_score>similarity_score_boundary and samePrint:
             num_successes+=1
-        elif similarity_score<100 and not samePrint:
+        elif similarity_score<similarity_score_boundary and not samePrint:
             num_successes+=1
-        elif similarity_score>100 and not samePrint:
+        elif similarity_score>similarity_score_boundary and not samePrint:
             num_false_acceptances+=1
-        elif similarity_score<100 and samePrint:
+        elif similarity_score<similarity_score_boundary and samePrint:
             num_false_rejections+=1
 
 

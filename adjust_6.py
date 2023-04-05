@@ -4,8 +4,8 @@ import hashlib
 import enhance_function
 
 # Load the fingerprint images
-img1_ = cv2.imread('enhanced/105_2.tif', cv2.IMREAD_GRAYSCALE)
-img2_ = cv2.imread('enhanced/105_1.tif', cv2.IMREAD_GRAYSCALE)
+img1_ = cv2.imread('enhanced/101_2.tif', cv2.IMREAD_GRAYSCALE)
+img2_ = cv2.imread('enhanced/103_1.tif', cv2.IMREAD_GRAYSCALE)
 
 # a and n are both ok
 img1 = enhance_function.enhance_fingerprint_a(img1_)
@@ -29,12 +29,15 @@ hash2_blocks = [hashlib.sha256(block.tobytes()).hexdigest() for block in des2_bl
 hash1 = ''.join(hash1_blocks)
 hash2 = ''.join(hash2_blocks)
 
-# print('------hash------',hash1)
+print('------hash------',hash1)
+
+# -------------------------------------
 
 # Divide concatenated hash values into blocks
 hash_block_size = 64  # Number of characters per block
 hash1_blocks = [hash1[i:i+hash_block_size] for i in range(0, len(hash1), hash_block_size)]
 hash2_blocks = [hash2[i:i+hash_block_size] for i in range(0, len(hash2), hash_block_size)]
+
 
 # Create a FLANN object
 FLANN_INDEX_KDTREE = 1
