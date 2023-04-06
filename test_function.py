@@ -73,10 +73,10 @@ def fingerprint_match_test(similarity_score_boundary, matching_criteria, block_s
 
             # Compare blocks using the FLANN index and ratio test
             similarity_score = 0
-            for i in range(len(des1_blocks)):
-                des1_block = des1_blocks[i]
-                if i < len(des2_blocks):
-                    des2_block = des2_blocks[i]
+            for w in range(len(des1_blocks)):
+                des1_block = des1_blocks[w]
+                if w < len(des2_blocks):
+                    des2_block = des2_blocks[w]
                     matches = flann.knnMatch(des1_block, k=2)
                     good_matches = []
                     for m, n in matches:
