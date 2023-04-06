@@ -101,8 +101,15 @@ FAR = num_false_acceptances / num_successes
 FRR = num_false_rejections / (num_comparisons - num_successes)
 ERR = (num_false_acceptances + num_false_rejections) / num_comparisons
 
-print(f"Number of comparisons: {num_comparisons}")
-print(f"Number of successful matches: {num_successes}")
-print(f"False acceptance rate (FAR): {FAR:.4f}")
-print(f"False rejection rate (FRR): {FRR:.4f}")
-print(f"Error rate (ERR): {ERR:.4f}")
+# print(f"Number of comparisons: {num_comparisons}")
+# print(f"Number of successful matches: {num_successes}")
+# print(f"False acceptance rate (FAR): {FAR:.4f}")
+# print(f"False rejection rate (FRR): {FRR:.4f}")
+# print(f"Error rate (ERR): {ERR:.4f}")
+
+with open("output.txt", "w") as file:
+    file.write(f"Number of comparisons: {num_comparisons}\n")
+    file.write(f"Number of successful matches: {num_successes}\n")
+    file.write(f"False acceptance rate (FAR): {FAR:.4f}\n")
+    file.write(f"False rejection rate (FRR): {FRR:.4f}\n")
+    file.write(f"Error rate (ERR): {ERR:.4f}\n")

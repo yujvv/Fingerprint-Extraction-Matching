@@ -5,7 +5,7 @@ import enhance_function
 
 # Load the fingerprint images
 img1_ = cv2.imread('enhanced/101_2.tif', cv2.IMREAD_GRAYSCALE)
-img2_ = cv2.imread('enhanced/103_1.tif', cv2.IMREAD_GRAYSCALE)
+img2_ = cv2.imread('enhanced/101_1.tif', cv2.IMREAD_GRAYSCALE)
 
 # a and n are both ok
 img1 = enhance_function.enhance_fingerprint_a(img1_)
@@ -19,9 +19,12 @@ kp1, des1 = sift.detectAndCompute(img1, None)
 kp2, des2 = sift.detectAndCompute(img2, None)
 
 # Divide descriptors into blocks
-block_size = 64  # Number of descriptors per block
+block_size = 800  # Number of descriptors per block
 des1_blocks = np.array_split(des1, len(des1) // block_size)
 des2_blocks = np.array_split(des2, len(des2) // block_size)
+
+print('----des1----', len(des1))
+print('----des1----', len(des1))
 
 # Apply hashing to each block and concatenate hashed values
 hash1_blocks = [hashlib.sha256(block.tobytes()).hexdigest() for block in des1_blocks]
