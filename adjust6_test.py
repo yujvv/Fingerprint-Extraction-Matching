@@ -113,3 +113,13 @@ with open("output.txt", "w") as file:
     file.write(f"False acceptance rate (FAR): {FAR:.4f}\n")
     file.write(f"False rejection rate (FRR): {FRR:.4f}\n")
     file.write(f"Error rate (ERR): {ERR:.4f}\n")
+
+
+
+# # Draw the matches on a new image
+# img_matches = cv2.drawMatches(img1, kp1, img2, kp2, good_matches, None)
+
+# # Display the image
+# cv2.imshow('Matches', img_matches)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
