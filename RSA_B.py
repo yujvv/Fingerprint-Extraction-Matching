@@ -6,7 +6,7 @@ from random import randint as rand
 
 #just to use the well known keyword rand() from C++
 
-str_add = "999999999"
+str_add = ""
 
 def add_prefix(str_add, x):
     return int(str_add+x)

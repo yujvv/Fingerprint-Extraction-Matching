@@ -1,8 +1,10 @@
 import cv2
 import numpy as np
+import crypto
+from Crypto.Random import get_random_bytes
 
-# file1 = 'enhanced/102_3.tif'
-# file2 = 'enhanced/103_3.tif'
+file1 = 'enhanced/102_3.tif'
+file2 = 'enhanced/103_3.tif'
 
 def enhance_fingerprint(img):
     # convert to grayscale if necessary
@@ -124,18 +126,28 @@ def filter_2(kp, des, img_shape):
 
 
 
-# img1 = cv2.imread(file1, cv2.IMREAD_GRAYSCALE)
-# img2 = cv2.imread(file2, cv2.IMREAD_GRAYSCALE)
+img1 = cv2.imread(file1, cv2.IMREAD_GRAYSCALE)
+img2 = cv2.imread(file2, cv2.IMREAD_GRAYSCALE)
 
-# (kp1, des1) = extracting(enhance_fingerprint(img1))
-# (kp2, des2) = extracting(enhance_fingerprint(img2))
-# (kp1_2, des1_2) = filter_2(kp1, des1, img_shape = img1.shape)
-# (kp2_2, des2_2) = filter_2(kp2, des2, img_shape = img1.shape)
-# (kp1_, des1_) = filter(kp1, des1)
-# (kp2_, des2_) = filter(kp2, des2)
-# similarity_score = matching(des1_, des2_)
+(kp1, des1) = extracting(enhance_fingerprint(img1))
+(kp2, des2) = extracting(enhance_fingerprint(img2))
+(kp1_2, des1_2) = filter_2(kp1, des1, img_shape = img1.shape)
+(kp2_2, des2_2) = filter_2(kp2, des2, img_shape = img1.shape)
 
-# print("--------len_des1--------", len(des1))
-# print("--------len_des1_--------", len(des1_))
-# print("--------len_des1_2--------", len(des1_2))
-# print("----------------", similarity_score)
+(kp1_, des1_) = filter(kp1, des1)
+(kp2_, des2_) = filter(kp2, des2)
+similarity_score = matching(des1_, des2_)
+
+print("--------len_des1--------", len(des1))
+print("--------len_des1_--------", len(des1_))
+print("--------len_des1_2--------", len(des1_2))
+print("----------------", similarity_score)
+
+compressed_bytes = crypto.compress(des1_2)
+print("Compressed Bytes: ", compressed_bytes)
+
+
+key = get_random_bytes(16)  # 128-bit key
+# Encrypt the plaintext
+ciphertext = crypto.encrypt(key, compressed_bytes)
+print("Ciphertext: ", ciphertext)
