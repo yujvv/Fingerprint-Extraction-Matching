@@ -2,8 +2,9 @@ import cv2
 import numpy as np
 import crypto
 from Crypto.Random import get_random_bytes
+import permute_vector
 
-file1 = 'enhanced/102_3.tif'
+file1 = 'enhanced/103_1.tif'
 file2 = 'enhanced/103_3.tif'
 
 def enhance_fingerprint(img):
@@ -51,7 +52,7 @@ def matching(des1, des2):
     # Compute similarity score
     similarity_score = len(good_matches) / max(len(des1), len(des2))
 
-    return similarity_score
+    return [similarity_score,good_matches]
 
 
 
@@ -131,23 +132,63 @@ img2 = cv2.imread(file2, cv2.IMREAD_GRAYSCALE)
 
 (kp1, des1) = extracting(enhance_fingerprint(img1))
 (kp2, des2) = extracting(enhance_fingerprint(img2))
+
+# img_enhanced = enhance_fingerprint(img1)
+# # Display the enhanced image
+# cv2.imshow('Enhanced Fingerprint', img1)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
 (kp1_2, des1_2) = filter_2(kp1, des1, img_shape = img1.shape)
 (kp2_2, des2_2) = filter_2(kp2, des2, img_shape = img1.shape)
 
-(kp1_, des1_) = filter(kp1, des1)
-(kp2_, des2_) = filter(kp2, des2)
-similarity_score = matching(des1_, des2_)
+# Display the image with keypoints
+# img_with_keypoints = cv2.drawKeypoints(img1, kp1_2, None)
+# cv2.imshow('Fingerprint with keypoints', img_with_keypoints)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
-print("--------len_des1--------", len(des1))
-print("--------len_des1_--------", len(des1_))
+# (kp1_, des1_) = filter(kp1, des1)
+# (kp2_, des2_) = filter(kp2, des2)
+
+print("-------des1_2----------------------------", des1_2)
+
+for i, row in enumerate(des1_2):
+    des1_2[i] = permute_vector.scramble_vector(row, "LtwHqkXsH5HCnViF")
+
+for i, row in enumerate(des2_2):
+    des2_2[i] = permute_vector.scramble_vector(row, "LtwHqkXsH5HCnViF")
+
+print("-------des1_2----------------------------", des1_2)
+
+similarity_score = matching(des1_2, des2_2)
+
+# print("--------len_des1--------", len(des1))
+# print("--------len_des1_--------", len(des1_))
+
+
+
 print("--------len_des1_2--------", len(des1_2))
-print("----------------", similarity_score)
+print("----------------", similarity_score[0])
+
+# # Draw the matches on a new image
+# img_matches = cv2.drawMatches(img1, kp1, img2, kp2, similarity_score[1], None)
+
+# # Display the image
+# cv2.imshow('Matches', img_matches)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+
+
+
 
 compressed_bytes = crypto.compress(des1_2)
-print("Compressed Bytes: ", compressed_bytes)
+print("Compressed Bytes_len--------------", len(compressed_bytes))
 
 
 key = get_random_bytes(16)  # 128-bit key
 # Encrypt the plaintext
 ciphertext = crypto.encrypt(key, compressed_bytes)
-print("Ciphertext: ", ciphertext)
+# print("Ciphertext: ", ciphertext)
+print("Ciphertext_len------------------- ", len(ciphertext))

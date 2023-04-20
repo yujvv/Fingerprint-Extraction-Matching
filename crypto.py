@@ -16,7 +16,7 @@ def compress(input_array):
     # Compress the bytes using Deflate
     compressed_bytes = zlib.compress(input_bytes, zlib.DEFLATED)
     # Print the compressed bytes
-    print("Compressed Bytes: ", compressed_bytes)
+    # print("Compressed Bytes: ", compressed_bytes)
     return compressed_bytes
 
 def decompress(compressed_bytes):
