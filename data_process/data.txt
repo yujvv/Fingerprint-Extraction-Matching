@@ -1,0 +1,161 @@
+similarity_score_boundary: 0.03
+
+Number of successful matches: 1774
+False acceptance rate (FAR): 0.0631
+False rejection rate (FRR): 0.0342
+Error rate (ERR): 0.0613
+-------------------
+similarity_score_boundary: 0.04
+
+Number of successful matches: 1840
+False acceptance rate (FAR): 0.0201
+False rejection rate (FRR): 0.2549
+Error rate (ERR): 0.0264
+-------------------
+similarity_score_boundary: 0.05
+
+Number of successful matches: 1852
+False acceptance rate (FAR): 0.0076
+False rejection rate (FRR): 0.6410
+Error rate (ERR): 0.0206
+-------------------
+similarity_score_boundary: 0.060000000000000005
+
+Number of successful matches: 1848
+False acceptance rate (FAR): 0.0027
+False rejection rate (FRR): 0.8837
+Error rate (ERR): 0.0227
+-------------------
+similarity_score_boundary: 0.07
+
+Number of successful matches: 1840
+False acceptance rate (FAR): 0.0005
+False rejection rate (FRR): 0.9804
+Error rate (ERR): 0.0270
+-------------------
+similarity_score_boundary: 0.08000000000000002
+
+Number of successful matches: 1829
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0328
+-------------------
+similarity_score_boundary: 0.09000000000000001
+
+Number of successful matches: 1818
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0386
+-------------------
+similarity_score_boundary: 0.1
+
+Number of successful matches: 1810
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0428
+-------------------
+similarity_score_boundary: 0.11000000000000001
+
+Number of successful matches: 1802
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0471
+-------------------
+similarity_score_boundary: 0.12000000000000002
+
+Number of successful matches: 1796
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0502
+-------------------
+similarity_score_boundary: 0.13
+
+Number of successful matches: 1793
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0518
+-------------------
+similarity_score_boundary: 0.14
+
+Number of successful matches: 1787
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0550
+-------------------
+similarity_score_boundary: 0.15000000000000002
+
+Number of successful matches: 1781
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0582
+-------------------
+similarity_score_boundary: 0.16000000000000003
+
+Number of successful matches: 1779
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0592
+-------------------
+similarity_score_boundary: 0.17
+
+Number of successful matches: 1775
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0613
+-------------------
+similarity_score_boundary: 0.18000000000000002
+
+Number of successful matches: 1772
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0629
+-------------------
+similarity_score_boundary: 0.19000000000000003
+
+Number of successful matches: 1767
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0656
+-------------------
+similarity_score_boundary: 0.20000000000000004
+
+Number of successful matches: 1766
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0661
+-------------------
+similarity_score_boundary: 0.21000000000000005
+
+Number of successful matches: 1758
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0703
+-------------------
+similarity_score_boundary: 0.22000000000000003
+
+Number of successful matches: 1755
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0719
+-------------------
+similarity_score_boundary: 0.23000000000000004
+
+Number of successful matches: 1753
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0730
+-------------------
+similarity_score_boundary: 0.24000000000000005
+
+Number of successful matches: 1750
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0746
+-------------------
+similarity_score_boundary: 0.25
+
+Number of successful matches: 1750
+False acceptance rate (FAR): 0.0000
+False rejection rate (FRR): 1.0000
+Error rate (ERR): 0.0746
+-------------------
